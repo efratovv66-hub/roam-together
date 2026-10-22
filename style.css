@@ -20,3 +20,7 @@ footer{background:rgba(255,255,255,.92);border:0;border-radius:12px;padding:20px
 html[dir=rtl] .airline-line span{display:inline-block;transform:scaleX(-1)}
 .airline-line span{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:34px;padding:0 10px;background:#fff;border-radius:6px;line-height:1}
 html[dir=rtl] .airline-line span{display:inline-flex}
+/* Center the aircraft tile on the route line, horizontally and vertically. */
+.airline-line{position:relative;height:34px;display:flex;align-items:center;justify-content:center;border-bottom:0;line-height:normal}
+.airline-line::before{content:'';position:absolute;inset-inline:0;top:50%;border-top:1px dashed #b9c5b3}
+.airline-line span{position:relative;z-index:1;flex-shrink:0}
