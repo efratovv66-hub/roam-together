@@ -27,3 +27,6 @@ html[dir=rtl] .airline-line span{display:inline-flex}
 /* Keep LTR clock digits aligned with their parent date column. */
 .flight-details .flight-time{text-align:left}
 html[dir=rtl] .flight-details .flight-time{text-align:right}
+
+/* Navigation follows the language selector on every screen. */
+aside{position:static;width:auto;padding:24px 45px;border-inline-end:0;border-bottom:1px solid var(--line)}aside>.eyebrow,.aside-bottom{display:none}.brand{margin:0}main{margin-inline-start:0;margin-inline:auto}main>nav{display:flex;gap:6px;overflow-x:auto;margin-top:12px;padding:8px;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.7);border-radius:14px}main>nav button{white-space:nowrap;flex-shrink:0}main>header{justify-content:flex-end}main>header>div:first-child{display:none}@media(max-width:760px){aside{padding:18px}main{margin:0;padding:20px 16px}main>nav button{padding:10px;font-size:12px}}
