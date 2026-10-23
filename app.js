@@ -55,8 +55,8 @@ async function lookupFlight(form) {
  try {
   const url=new URL(endpoint+'/flight');if(url.protocol!=='https:')throw Error('SETUP');
   const number=values.number.replace(/\s/g,'').toUpperCase();url.search=new URLSearchParams({number,date:values.date,time:values.time});
-  const res=await fetch(url,{signal:AbortSignal.timeout(25000)}),body=await res.json();
-  if(!res.ok)throw Error(body.error||'PROVIDER');
+  const res=await fetch(url,{signal:AbortSignal.timeout(25000)});let body;try{body=await res.json()}catch{throw Error("HTTP_"+res.status)}
+  if(!res.ok)throw Error((body.error||'PROVIDER')+(body.providerStatus?'_'+body.providerStatus:''));
   const f=body.flight;
   if(!f||f.number!==number||f.dep?.slice(0,10)!==values.date||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(f.dep)||typeof f.airline!=='string'||!f.airline||f.source!=='AeroDataBox'||!Number.isFinite(Date.parse(f.updatedAt)))throw Error('PROVIDER');
   for(const key of ['depZone','arrZone'])new Intl.DateTimeFormat('en',{timeZone:f[key]});
@@ -74,7 +74,7 @@ async function lookupFlight(form) {
   state.selected=chosen.id;flightUnlocked=true;searchStarted=false;page='overview';
   try{localStorage.setItem('roam-data',JSON.stringify(state))}catch{toast(t('lookupError'))}
   render();window.scrollTo({top:0,behavior:'instant'});if(changed)toast(t('scheduleChanged'));
- }catch(e){if(result.isConnected)result.textContent=t(({SETUP:'lookupSetup',NOT_FOUND:'notFound',AMBIGUOUS:'ambiguous',QUOTA:'quotaError',RATE_LIMIT:'quotaError'})[e.message]||'lookupError')}
+ }catch(e){if(result.isConnected)result.textContent=t(({SETUP:'lookupSetup',NOT_FOUND:'notFound',AMBIGUOUS:'ambiguous',QUOTA:'quotaError',RATE_LIMIT:'quotaError'})[e.message]||'lookupError')+' ('+esc(e.message)+')'}
  finally{button.disabled=false}
 }
 render();setInterval(updateCount,1000);
