@@ -108,7 +108,7 @@ function updateDestinationBackground(){
    const url=new URL('https://en.wikipedia.org/w/api.php');url.search=new URLSearchParams({action:'query',format:'json',origin:'*',redirects:'1',prop:'pageimages',piprop:'thumbnail|name',pithumbsize:'1600',pilicense:'free',titles:city});
    const res=await fetch(url,{signal:AbortSignal.timeout(10000)});if(!res.ok)throw Error();
    const data=await res.json(),p=Object.values(data.query?.pages||{}).find(x=>x.thumbnail&&x.pageimage);
-   if(!p)throw Error();const image=new URL(p.thumbnail.source);if(image.protocol!=='https:'||image.hostname!=='upload.wikimedia.org')throw Error();
+   if(!p)throw Error();const image=new URL(p.thumbnail.source);if(image.protocol!=='https:'||!['upload.wikimedia.org','thumb.wikimedia.org'].includes(image.hostname))throw Error();
    return {url:image.href,source:'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(p.pageimage)};
   }catch{return null}
  })();
