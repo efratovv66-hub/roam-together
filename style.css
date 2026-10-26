@@ -173,3 +173,118 @@ html[dir=rtl] .trip-page-route span{transform:scaleX(-1)}
  .dashbar #accountSignOut,.dashbar #language{padding:8px 10px;font-size:12px}
  .dashbar>nav button{padding:9px 11px;font-size:12px}
 }
+/* App refresh: one visual system for every page after sign-in. */
+:root{--card:rgba(255,255,255,.95);--soft:#f3f6ee;--radius:20px;--shadow:0 10px 30px rgba(36,60,53,.10)}
+aside{background:transparent;border:0;padding:22px 45px 0}
+aside .brand{display:inline-flex;background:rgba(255,255,255,.92);padding:10px 18px;border-radius:40px;font-size:20px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+aside .brand>span{font-size:18px}
+main{padding-top:16px}
+.dashbar,main>.title-row,.card,.stat,footer,#destinationCredit{border-radius:var(--radius)}
+.card,.stat{background:var(--card);border:1px solid rgba(255,255,255,.75);box-shadow:var(--shadow);padding:26px}
+main>.title-row{margin:16px 0 18px;padding:22px 26px;background:var(--card);box-shadow:var(--shadow)}
+main>.title-row h1{font-size:clamp(28px,4vw,40px);margin:0 0 6px}
+#subtitle{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#54764b;background:var(--soft);padding:5px 11px;border-radius:20px}
+main>.title-row>div:last-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#tripSelect{height:42px;border-radius:12px;padding:0 12px;font-weight:600}
+button,.button{border-radius:12px}
+.primary{font-weight:700}
+.section-head{margin-bottom:18px;gap:12px}
+.section-head h2{font-size:20px}
+.section-head .muted{font-size:13px;margin-top:4px}
+.text-button{font-weight:700;color:#54764b;padding:6px 8px;border-radius:8px}
+.text-button:hover{background:var(--soft)}
+.empty{padding:36px 15px;border:1.5px dashed #d6dfcb;border-radius:14px;background:#fafbf7}
+:where(main,dialog) :is(input:not([type=checkbox]):not([type=radio]),select,textarea){border:1.5px solid var(--line);border-radius:12px;background:#f8f9f5;min-height:44px;transition:border-color .2s,box-shadow .2s,background .2s}
+:where(main,dialog) :is(input,select,textarea):focus{outline:0;border-color:#a9bf69;background:#fff;box-shadow:0 0 0 4px rgba(169,191,105,.22)}
+label.field{font-weight:600;color:#40564f}
+/* Overview */
+.hero{border-radius:24px;min-height:320px;padding:40px}
+.hero h2{font-size:clamp(40px,5vw,56px)}
+.countdown{border-radius:18px;padding:22px 24px}
+.digits b{font-size:34px;font-variant-numeric:tabular-nums}
+.ov-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
+.ov-stat{display:flex;align-items:center;gap:14px;padding:18px;background:var(--card);border:1px solid rgba(255,255,255,.75);border-radius:18px;box-shadow:var(--shadow)}
+.ov-icon{flex-shrink:0;width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:var(--soft);color:var(--ink);font-size:18px;font-weight:700}
+.ov-stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}
+.ov-stat b{font:700 21px 'Manrope',Arial,sans-serif;font-variant-numeric:tabular-nums}
+.ov-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
+.ov-card{min-height:250px}
+.ov-route{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px;background:var(--soft);border-radius:14px}
+.ov-route b{display:block;font:800 30px 'Manrope',Arial,sans-serif}
+.ov-route small{color:var(--muted);font-size:11px}
+.ov-route>div:last-child{text-align:end}
+.ov-plane{flex:1;text-align:center;color:#8d9f88;font-size:20px;background:linear-gradient(currentColor,currentColor) center/100% 1px no-repeat}
+.ov-plane::first-letter{background:var(--soft)}
+html[dir=rtl] .ov-plane{transform:scaleX(-1)}
+.ov-flight-meta{margin-top:14px;font-size:13px}
+/* Progress and tasks */
+.progress-block{margin-bottom:12px}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.progress-label b{color:var(--ink)}
+.progress{height:8px;margin:8px 0 0;background:#e9eee1}
+.progress>div{background:linear-gradient(90deg,#a9bf69,#54764b);transition:width .4s}
+.task-list .row,.tasks-card .row{padding:12px 10px;border:0;border-radius:12px;margin:0 -10px}
+.task-list .row:hover{background:#f7f9f3}
+.row input[type=checkbox]{appearance:none;-webkit-appearance:none;flex-shrink:0;width:22px;height:22px;margin:0;border:2px solid #b9c5b3;border-radius:7px;background:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s}
+.row input[type=checkbox]::after{content:'';width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px) scale(0);transition:transform .15s}
+.row input[type=checkbox]:checked{background:#54764b;border-color:#54764b}
+.row input[type=checkbox]:checked::after{transform:rotate(45deg) translate(-1px,-1px) scale(1)}
+.row .delete,.timeline .delete{width:30px;height:30px;padding:0;border-radius:8px;color:#a0a8a0;opacity:.6}
+.row:hover .delete,.timeline li:hover .delete,.delete:focus-visible{opacity:1}
+.delete:hover{background:#fbe9ec;color:#a41c38}
+/* Itinerary timeline */
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:'';position:absolute;inset-inline-start:27px;top:10px;bottom:10px;width:2px;background:repeating-linear-gradient(#cfd8c6 0 5px,#0000 5px 10px)}
+.timeline li{position:relative;display:flex;align-items:center;gap:16px;padding:10px 0}
+.timeline .grow{flex:1;min-width:0;padding:14px 16px;background:#fafbf7;border:1px solid #edf0e7;border-radius:14px}
+.timeline .grow small{display:block;color:var(--muted);margin-top:4px}
+.day-chip{position:relative;z-index:1;flex-shrink:0;width:56px;height:56px;display:grid;place-content:center;text-align:center;border-radius:16px;background:var(--ink);color:#fff;line-height:1.1}
+.day-chip b{font:800 20px 'Manrope',Arial,sans-serif}
+.day-chip small{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#e1edba}
+.timeline.compact .day-chip{width:44px;height:44px;border-radius:12px}
+.timeline.compact .day-chip b{font-size:16px}
+.timeline.compact::before{inset-inline-start:21px}
+.timeline.compact .grow{padding:10px 12px}
+/* Flights */
+#lookupForm{gap:16px!important}
+#lookupForm .primary{height:46px}
+#lookupForm details{background:#fafbf7;border-radius:14px;padding:12px 16px}
+#lookupForm summary{font-weight:600;margin-bottom:0!important}
+#lookupForm details[open] summary{margin-bottom:14px!important}
+.note{border-radius:12px;font-size:12px}
+.flight-card{border-radius:var(--radius)}
+.route .airport b{font-size:36px}
+.badge{font-weight:700}
+/* Budget */
+.budget-summary{border-radius:16px;background:linear-gradient(120deg,#183c36,#2e5548)}
+/* Trips pages, footer, dialog */
+.trip-page{border-radius:24px}
+footer{margin-top:28px;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);box-shadow:none}
+dialog{border:0;border-radius:24px;padding:28px;box-shadow:0 30px 60px rgba(19,47,39,.3)}
+dialog .primary{width:100%;height:46px;margin-top:6px}
+#toast{border-radius:14px;box-shadow:0 12px 30px rgba(19,47,39,.3)}
+@media(max-width:1100px){.ov-grid{grid-template-columns:1fr 1fr}.ov-grid>:last-child{grid-column:1/-1}}
+@media(max-width:760px){
+ aside{padding:16px 16px 0}
+ main>.title-row{padding:18px}
+ .card,.stat{padding:20px}
+ .hero{padding:24px;border-radius:20px}
+ .ov-stats{grid-template-columns:1fr 1fr;gap:10px}
+ .ov-stat{padding:14px;gap:10px}
+ .ov-icon{width:36px;height:36px}
+ .ov-stat b{font-size:17px}
+ .ov-grid{grid-template-columns:1fr}
+ .ov-card{min-height:0}
+ .ov-route b{font-size:24px}
+ .day-chip{width:48px;height:48px}
+ .timeline::before{inset-inline-start:23px}
+}
+#lookupForm{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#lookupForm>.primary{justify-self:start;min-width:180px}
+@media(max-width:760px){#lookupForm{grid-template-columns:1fr!important}#lookupForm>.primary{justify-self:stretch}}
+/* Each trip page shows a photo of its destination. */
+.trip-page{position:relative;transition:background .4s}
+.trip-page.has-photo{background:linear-gradient(90deg,rgba(15,43,39,.9),rgba(26,48,45,.35)),var(--trip-image) center 55%/cover no-repeat}
+html[dir=rtl] .trip-page.has-photo{background:linear-gradient(270deg,rgba(15,43,39,.9),rgba(26,48,45,.35)),var(--trip-image) center 55%/cover no-repeat}
+.photo-credit{position:absolute;bottom:12px;inset-inline-end:16px;font-size:10.5px;color:#ffffffb0;text-decoration:none;background:rgba(0,0,0,.25);padding:4px 8px;border-radius:12px}
+.photo-credit:hover{color:#fff;text-decoration:underline}
