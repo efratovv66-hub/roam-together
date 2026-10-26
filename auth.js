@@ -61,7 +61,7 @@ async function openAccount(session){
  if(error){message(text('Could not load your trips. Please try signing in again.','לא ניתן לטעון את הטיולים. נסו להתחבר שוב.'));return}
  revision=data?.revision||0;
  window.ROAM_ACCOUNT={id:user.id,email:user.email,state:data?.data||{version:1,selected:null,trips:[]},commit};
- const script=document.createElement('script');script.src='app.js?v=20261023-accounts1';
+ const script=document.createElement('script');script.src='app.js?v=20261026-trips1';
  script.onload=()=>{if(!window.ROAM_APP_READY){message(text('Could not open your saved trips. Your account data has not changed.','לא ניתן לפתוח את הטיולים. הנתונים בחשבון לא שונו.'));return}loaded=true;gate.hidden=true;document.body.classList.remove('auth-locked');renderAccountBar()};
  script.onerror=()=>message(text('Could not load the app. Refresh to try again.','טעינת האתר נכשלה. רעננו כדי לנסות שוב.'));
  document.body.append(script);

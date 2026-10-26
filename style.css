@@ -113,3 +113,37 @@ html[dir=rtl] .auth-submit:hover svg{transform:rotate(-90deg) translateY(-4px)}
  .auth-route{padding-top:4px}
 }
 @media(prefers-reduced-motion:reduce){.auth-path>svg path,.auth-plane,.auth-airport.flip{animation:none}}
+/* Saved trips as swipeable pages. */
+.trip-pages-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.trip-pages-count{font-weight:700;color:#40564f;background:rgba(255,255,255,.9);padding:8px 14px;border-radius:30px}
+.trip-pages-actions{display:flex;gap:8px;align-items:center}
+.trip-nav{width:42px;height:42px;padding:0;border-radius:50%;font-size:22px;line-height:1;background:rgba(255,255,255,.95)}
+html[dir=rtl] .trip-nav{transform:scaleX(-1)}
+.trip-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:20px;outline-offset:4px}
+.trip-track::-webkit-scrollbar{display:none}
+.trip-page{scroll-snap-align:start;min-height:380px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:34px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#183c36,#2e5548 60%,#54764b);box-shadow:0 12px 36px #243c3520}
+.trip-page-nyc{background:linear-gradient(90deg,rgba(15,43,39,.9),rgba(26,48,45,.35)),url('nyc-sunset.jpg') center 55%/cover no-repeat}
+.trip-page h2{font-size:clamp(34px,5vw,50px);letter-spacing:-2px;margin:12px 0 0;color:#fff}
+.trip-page p{margin:0;color:#d5e0d3}
+.trip-page-route{display:flex;align-items:center;gap:12px;margin:14px 0 4px;font:800 26px 'Manrope',Arial,sans-serif}
+.trip-page-route span{font-size:20px;color:#e1edba}
+html[dir=rtl] .trip-page-route span{transform:scaleX(-1)}
+.trip-page-route small{font:600 12px 'DM Sans',Arial;background:#ffffff1f;padding:5px 10px;border-radius:20px}
+.trip-page-stats{display:grid;grid-template-columns:repeat(4,auto);gap:12px 32px;margin:18px 0 22px;padding:16px 20px;background:rgba(16,40,35,.45);border:1px solid #ffffff25;border-radius:14px;backdrop-filter:blur(6px)}
+.trip-page-stats b{display:block;font:700 22px 'Manrope',Arial,sans-serif;font-variant-numeric:tabular-nums}
+.trip-page-stats small{color:#ccd8cd;font-size:11px}
+.trip-page-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.trip-page-actions .primary{background:#e1edba;color:#183c36;border-color:#e1edba;font-weight:700;padding:12px 20px}
+.trip-page-actions .primary:hover{background:#fff}
+.trip-delete{background:transparent;color:#fff;border-color:#ffffff55;padding:12px 18px}
+.trip-delete:hover{background:#a41c38;border-color:#a41c38}
+.trip-page-add{background:rgba(255,255,255,.88);border:2px dashed #a9bf69;box-shadow:none;align-items:stretch;justify-content:center;backdrop-filter:blur(10px)}
+.trip-page-add button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:0;background:none;color:var(--ink)}
+.trip-page-add button:hover{background:#eef3e6}
+.trip-page-add span{width:64px;height:64px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;font-size:30px}
+.trip-page-add b{font:800 22px 'Manrope',Arial,sans-serif}
+.trip-page-add small{color:var(--muted)}
+.trip-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+.trip-dots button{width:10px;height:10px;padding:0;border-radius:10px;border:0;background:rgba(24,60,54,.3);transition:width .25s,background .25s}
+.trip-dots button.active{width:28px;background:var(--ink)}
+@media(max-width:760px){.trip-page{padding:24px;min-height:420px}.trip-page-stats{grid-template-columns:1fr 1fr;gap:12px 20px;width:100%}.trip-pages-actions .primary{padding:10px 12px}.trip-page-actions{width:100%}.trip-page-actions button{flex:1}}
