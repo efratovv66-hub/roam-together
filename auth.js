@@ -61,7 +61,7 @@ async function openAccount(session){
  if(error){message(text('Could not load your trips. Please try signing in again.','לא ניתן לטעון את הטיולים. נסו להתחבר שוב.'));return}
  revision=data?.revision||0;
  window.ROAM_ACCOUNT={id:user.id,email:user.email,state:data?.data||{version:1,selected:null,trips:[]},commit};
- const script=document.createElement('script');script.src='app.js?v=20261026-trips1';
+ const script=document.createElement('script');script.src='app.js?v=20261026-dash1';
  script.onload=()=>{if(!window.ROAM_APP_READY){message(text('Could not open your saved trips. Your account data has not changed.','לא ניתן לפתוח את הטיולים. הנתונים בחשבון לא שונו.'));return}loaded=true;gate.hidden=true;document.body.classList.remove('auth-locked');renderAccountBar()};
  script.onerror=()=>message(text('Could not load the app. Refresh to try again.','טעינת האתר נכשלה. רעננו כדי לנסות שוב.'));
  document.body.append(script);
@@ -87,7 +87,7 @@ function showSyncFailure(snapshot){
 }
 function renderAccountBar(){
  const bar=document.querySelector('#accountBar');bar.hidden=false;
- bar.innerHTML=`<span dir="ltr">${safe(user.email)}</span><small id="cloudStatus">${text('Saved to your account','נשמר בחשבון שלכם')}</small><button id="localTripsImport" hidden>${text('Import trips from this device','העברת טיולים מהמכשיר לחשבון')}</button><button id="accountSignOut">${text('Sign out','יציאה מהחשבון')}</button>`;
+ bar.innerHTML=`<span class="account-avatar" aria-hidden="true">${safe((user.email||'?')[0].toUpperCase())}</span><span class="account-email" dir="ltr">${safe(user.email)}</span><small id="cloudStatus">${text('Saved to your account','נשמר בחשבון שלכם')}</small><button id="localTripsImport" hidden>${text('Import trips from this device','העברת טיולים מהמכשיר לחשבון')}</button><button id="accountSignOut">${text('Sign out','יציאה מהחשבון')}</button>`;
  const legacy=localStorage.getItem('roam-data');
  if(legacy){const button=bar.querySelector('#localTripsImport');button.hidden=false;button.onclick=()=>window.dispatchEvent(new CustomEvent('roam-import-local'))}
  bar.querySelector('#accountSignOut').onclick=async()=>{await queue;if(failed)return;const {error}=await client.auth.signOut();if(!error)location.reload();else setStatus(text('Sign out failed. Please try again.','היציאה נכשלה. נסו שוב.'))};
