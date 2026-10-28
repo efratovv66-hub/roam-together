@@ -1,0 +1,59 @@
+/* Account entrance refresh — scoped to the signed-out screen. */
+body.auth-locked{background:#f2f4ee!important;background-image:none!important}
+#accountGate{width:min(1120px,calc(100% - 64px));min-height:100svh;padding:28px 0 40px;justify-content:center}
+#accountGate .auth-top{margin-bottom:30px}
+#accountGate .auth-top .brand{margin:0;background:none;box-shadow:none;padding:0;font-size:30px;gap:11px}
+#accountGate .auth-top .brand>span{font-size:23px}
+#accountGate #authLanguage{background:transparent;border:1px solid #cfd8cf;border-radius:30px;padding:10px 20px;font-weight:600}
+#accountGate .auth-shell{display:grid;grid-template-columns:1.06fr 1fr;border-radius:28px;overflow:hidden;box-shadow:0 24px 70px #183c3614;isolation:isolate}
+#accountGate .auth-visual,#accountGate .auth-card{mask:none;-webkit-mask:none;border-radius:0;min-width:0}
+#accountGate .auth-visual{padding:48px 40px 36px;min-height:570px;gap:24px;background:linear-gradient(180deg,rgba(13,44,38,.72),rgba(13,44,38,.25) 45%,rgba(13,44,38,.94)),url('nyc-sunset.jpg') center/cover}
+#accountGate .auth-visual .eyebrow{color:#e1edba;font-size:10px;letter-spacing:2.4px}
+#accountGate .auth-visual h2{font-size:clamp(34px,3.8vw,50px);line-height:1.13;max-width:12ch;letter-spacing:-1.8px}
+#accountGate .auth-route{padding-top:84px;margin-top:auto;gap:18px}
+#accountGate .auth-airport b{font-size:42px}
+#accountGate .auth-airport small{color:#e4e9df}
+#accountGate .auth-pass-meta{padding-top:23px;margin-top:4px}
+#accountGate .auth-card{padding:52px 46px 36px;background:#fff;display:flex;flex-direction:column;justify-content:center;border:0;box-shadow:none}
+#accountGate .auth-card>.eyebrow{font-size:9px;letter-spacing:1.8px;color:#657b54}
+#accountGate .auth-card h1{font-size:clamp(29px,3vw,38px);line-height:1.2;margin:16px 0 12px;letter-spacing:-1.2px}
+#accountGate .auth-card>.muted{font-size:14px;line-height:1.8;color:#6b7971;max-width:34ch}
+#accountGate .auth-card form{margin-top:30px;gap:19px}
+#accountGate .auth-card label.field{font-size:13px;gap:9px;color:#354e43}
+#accountGate .auth-input input{height:54px;background:#f8faf6;border:1px solid #dce3d8;border-radius:11px}
+#accountGate .auth-input input::placeholder{color:#859282}
+#accountGate .auth-input input[dir=ltr]{text-align:left;padding-left:44px;padding-right:14px}
+html[dir=rtl] #accountGate .auth-input input[dir=ltr]{padding-left:14px;padding-right:44px}
+#accountGate .auth-submit{height:54px;margin-top:3px;border-radius:11px;background:#204c3f;border-color:#204c3f;box-shadow:0 5px 12px #204c3f14}
+#accountGate .auth-submit:hover{background:#153b30}
+#accountGate .auth-card [role=status]{color:#496343;line-height:1.6}
+#accountGate .auth-card [role=status]:empty{display:none}
+#accountGate .auth-links{margin:22px 0 0;gap:12px;justify-content:space-between}
+#accountGate .auth-links button{font-size:12px;color:#466346}
+#accountGate .auth-note{margin-top:28px;padding-top:18px;color:#7b877d;font-size:11px;line-height:1.7}
+html[dir=rtl] #accountGate .auth-visual h2{letter-spacing:-.7px;line-height:1.25}
+html[dir=rtl] #accountGate .eyebrow{letter-spacing:.5px}
+#accountGate button:focus-visible{outline:3px solid #90ad65;outline-offset:4px}
+@media(max-width:820px){
+ #accountGate{width:calc(100% - 36px);padding:22px 0 30px;justify-content:flex-start}
+ #accountGate .auth-top{margin-bottom:22px}
+ #accountGate .auth-shell{grid-template-columns:1fr;border-radius:22px}
+ #accountGate .auth-visual{min-height:250px;padding:28px;gap:16px;background-position:center 58%}
+ #accountGate .auth-visual h2{max-width:20ch;font-size:32px;letter-spacing:-1px}
+ #accountGate .auth-route{padding-top:14px;gap:18px}
+ #accountGate .auth-airport b{font-size:32px}
+ #accountGate .auth-pass-meta{display:none}
+ #accountGate .auth-card{padding:34px 28px 28px}
+ #accountGate .auth-card h1{font-size:30px}
+ #accountGate .auth-card>.muted{max-width:none}
+}
+@media(max-width:420px){
+ #accountGate{width:calc(100% - 24px);padding-top:18px}
+ #accountGate .auth-top .brand>span{font-size:20px}
+ #accountGate #authLanguage{padding:9px 15px;font-size:12px}
+ #accountGate .auth-visual{padding:24px;min-height:230px}
+ #accountGate .auth-visual h2{font-size:28px}
+ #accountGate .auth-card{padding:30px 22px 24px}
+ #accountGate .auth-card>.eyebrow{font-size:8px}
+}
+
