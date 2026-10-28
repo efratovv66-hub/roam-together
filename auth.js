@@ -2,7 +2,10 @@ import {createClient} from 'https://esm.sh/@supabase/supabase-js@2.118.0';
 
 const config=window.ROAM_AUTH_CONFIG;
 const gate=document.querySelector('#accountGate');
-let language=localStorage.getItem('roam-language')||'en',mode='login',client,user,revision=0,loaded=false,queue=Promise.resolve(),failed=false,latestSnapshot;
+// Capture recovery intent before Supabase consumes the callback fragment.
+const recoveryRequested=new URLSearchParams(location.search).get('reset')==='1'||new URLSearchParams(location.hash.slice(1)).get('type')==='recovery'||sessionStorage.getItem('roam-password-recovery')==='1';
+if(recoveryRequested)sessionStorage.setItem('roam-password-recovery','1');
+let language=localStorage.getItem('roam-language')||'en',mode=recoveryRequested?'update':'login',client,user,revision=0,loaded=false,queue=Promise.resolve(),failed=false,latestSnapshot;
 const text=(en,he)=>language==='he'?he:en;
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function message(s){const n=gate.querySelector('[role=status]');if(n)n.textContent=s;}
@@ -42,19 +45,19 @@ async function submit(e){
   let result;
   const redirect=location.origin+location.pathname;
   if(mode==='signup')result=await client.auth.signUp({email,password,options:{emailRedirectTo:redirect}});
-  else if(mode==='reset')result=await client.auth.resetPasswordForEmail(email,{redirectTo:redirect});
+  else if(mode==='reset')result=await client.auth.resetPasswordForEmail(email,{redirectTo:redirect+'?reset=1'});
   else if(mode==='update')result=await client.auth.updateUser({password});
   else result=await client.auth.signInWithPassword({email,password});
   if(result.error)throw result.error;
   form.reset();
   if(mode==='reset'||(mode==='signup'&&!result.data.session)){message(text('Check your email for a confirmation link. If it does not arrive, check spam or try again later.','בדקו במייל את קישור האישור. אם לא הגיע, בדקו בדואר זבל או נסו שוב מאוחר יותר.'));return}
-  if(mode==='update'){mode='login';await openAccount((await client.auth.getSession()).data.session);return}
+  if(mode==='update'){sessionStorage.removeItem('roam-password-recovery');history.replaceState(null,'',location.pathname);mode='login';message(text('Password saved. Opening your trips…','הסיסמה נשמרה. פותח את הטיולים…'));if(loaded){gate.hidden=true;document.body.classList.remove('auth-locked')}else await openAccount((await client.auth.getSession()).data.session);return}
   await openAccount(result.data.session);
  }catch(error){message(error.status===429?text('Too many requests. Please wait and try again.','בוצעו יותר מדי בקשות. המתינו ונסו שוב.'):mode==='login'?text('Could not sign in. Check your email, password and email confirmation.','לא הצלחנו להתחבר. בדקו את המייל, הסיסמה ואישור כתובת המייל.'):text('The request could not be completed. Check the details or try again later.','לא ניתן להשלים את הבקשה. בדקו את הפרטים או נסו שוב מאוחר יותר.'))}
  finally{b.disabled=false}
 }
 async function openAccount(session){
- if(!session?.user)return; if(loaded)return;
+ if(!session?.user||mode==='update')return; if(loaded)return;
  user=session.user;
  message(text('Loading your trips…','טוען את הטיולים שלכם…'));
  const {data,error}=await client.from('roam_workspaces').select('data,revision').eq('owner_id',user.id).maybeSingle();
@@ -62,7 +65,7 @@ async function openAccount(session){
  revision=data?.revision||0;
  window.ROAM_ACCOUNT={id:user.id,email:user.email,state:data?.data||{version:1,selected:null,trips:[]},commit};
  const script=document.createElement('script');script.src='app.js?v=20261026-dest1';
- script.onload=()=>{if(!window.ROAM_APP_READY){message(text('Could not open your saved trips. Your account data has not changed.','לא ניתן לפתוח את הטיולים. הנתונים בחשבון לא שונו.'));return}loaded=true;gate.hidden=true;document.body.classList.remove('auth-locked');renderAccountBar()};
+ script.onload=()=>{if(!window.ROAM_APP_READY){message(text('Could not open your saved trips. Your account data has not changed.','לא ניתן לפתוח את הטיולים. הנתונים בחשבון לא שונו.'));return}loaded=true;if(mode==='update'){showGate();return}gate.hidden=true;document.body.classList.remove('auth-locked');renderAccountBar()};
  script.onerror=()=>message(text('Could not load the app. Refresh to try again.','טעינת האתר נכשלה. רעננו כדי לנסות שוב.'));
  document.body.append(script);
 }
@@ -96,10 +99,13 @@ showGate();
 if(config?.url&&config?.key){
  client=createClient(config.url,config.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
  client.auth.onAuthStateChange((event,session)=>{
-  if(event==='PASSWORD_RECOVERY'){mode='update';showGate()}
+  if(event==='PASSWORD_RECOVERY'){sessionStorage.setItem('roam-password-recovery','1');mode='update';showGate()}
   if(event==='SIGNED_OUT'&&loaded)location.reload();
   if(event==='SIGNED_IN'&&loaded&&session?.user.id!==user?.id)location.reload();
  });
  const {data,error}=await client.auth.getSession();
- if(!error&&data.session&&mode!=='update')await openAccount(data.session);
+ if(mode==='update'){
+  if(error||!data.session){mode='reset';sessionStorage.removeItem('roam-password-recovery');showGate();message(text('Request a new reset email, then open the newest link.','בקשו מייל איפוס חדש ופתחו את הקישור האחרון שקיבלתם.'))}
+ }else if(!error&&data.session)await openAccount(data.session);
 }
+
